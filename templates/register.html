@@ -3,14 +3,14 @@
         <title>Register</title>
     {% endblock %}
     {% block body %}
-    {% include "partials/error_box.html" %}
-    <h2>Register</h2>
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" autocomplete="off"/>
-        <input type="password" name="password" placeholder="Password" autocomplete="off"/>
-        <input type="password" name="password-confirm" placeholder="Confirm Password" autocomplete="off"/>
-        <input type="email" name="email" placeholder="E-mail"/>
-        <input type="submit" value="Register"/>
-    </form>
-    <p>Do you already have an account?<a href="/login">Log In</a></p>
+        {% include "partials/error_box.html" %}
+        <h2>Register</h2>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" autocomplete="off"/>
+            <input type="password" name="password" placeholder="Password" autocomplete="off"/>
+            <input type="password" name="password-confirm" placeholder="Confirm Password" autocomplete="off"/>
+            <input type="email" name="email" placeholder="E-mail"/>
+            <input type="submit" value="Register"/>
+        </form>
+        <p>Do you already have an account?<a href="/login">Log In</a></p>
     {% endblock %}

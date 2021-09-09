@@ -63,4 +63,4 @@ def get_extension_index(filename):
 
 
 def get_name_index(file_dest):
-    return file_dest.rfind("\\") + 1
+    return file_dest.rfind("/") + 1

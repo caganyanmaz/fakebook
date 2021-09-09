@@ -26,6 +26,10 @@ TEMPLATE = {
         },
         "password": {
             "type": "binary"
+        },
+        "picture": {
+            "type": "int",
+            "default": 0
         }
     }
 }

@@ -19,6 +19,12 @@ class DynamicFileManager:
         file_utils.create_directory(file_utils.get_directory(file_dest))
         file.save(file_dest)
         return id
+    
+    def add_without_extension(self, file):
+        file_dest, id = self.create_file_data()
+        file_utils.create_directory(file_utils.get_directory(file_dest))
+        file.save(file_dest)
+        return id
 
     def get_id(self, filepath):
         val = 0
@@ -39,7 +45,7 @@ class DynamicFileManager:
     def get_file_dest(self, id, extension=".file"):
         dest = extension
         while id > 0:
-            dest = "\\" + str((id % self.FOLDER_SIZE)) + dest
+            dest = "/" + str((id % self.FOLDER_SIZE)) + dest
             id = int(id / self.FOLDER_SIZE)
         return self.SUB_DIR + dest
 
@@ -52,11 +58,11 @@ class DynamicFileManager:
             for dir in dir_list:
                 if "." in dir:
                     continue
-                filepath += "\\" + dir
+                filepath += "/" + dir
                 break
             else:
                 if len(dir_list) > 0:
-                    filepath += "\\" + dir_list[0]
+                    filepath += "/" + dir_list[0]
                 break
         return self.get_id(filepath)
 

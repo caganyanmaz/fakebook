@@ -128,6 +128,10 @@ class SqlManager():
 
     @staticmethod
     def quote_identifier(s, errors="strict"):
+        return "\"" + SqlManager.identify_quote_without_commas(s, errors) + "\""
+
+    @staticmethod
+    def identify_quote_without_commas(s, errors="strict"):
         encodable = s.encode("utf-8", errors).decode("utf-8")
 
         nul_index = encodable.find("\x00")
@@ -139,7 +143,7 @@ class SqlManager():
             replacement, _ = error_handler(error)
             encodable = encodable.replace("\x00", replacement)
 
-        return "\"" + encodable.replace("\"", "\"\"") + "\""
+        return encodable.replace("\"", "\"\"")
 
     #@staticmethod
     #def to_sql_str(val):
@@ -202,7 +206,7 @@ class SqlManager():
             for key, val in kwargs.items():
                 query += f"{key} = {SqlManager.to_sql_val(val)}, "
             query = query[:-2] + f" WHERE id = {_id}"
-            self.sql_managercursor.execute(query)
+            self.sql_manager.cursor.execute(query)
             self.sql_manager.db.commit()
 
         def delete(self, _id):
@@ -247,7 +251,7 @@ class SqlManager():
             return formatted_data
 
         def search(self, var_name, val, limit=0): 
-            key = SqlManager.quote_identifier(val)
+            key = SqlManager.identify_quote_without_commas(val)
             query = f"SELECT * FROM {self.name} WHERE {var_name} LIKE '%{key}%' "
             query += SqlManager.add_limit(limit)
             self.sql_manager.cursor.execute(query)

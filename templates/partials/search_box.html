@@ -1,0 +1,38 @@
+<div>
+    <form>
+        <input id="search-text-box" type="text" name="query" autocomplete="off"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <div id="query-result-box">
+    </div>
+    <script>
+        (function(){
+            const queryResultBox = document.getElementById("query_result_box");
+            const searchBox = document.getElementById("search-text-box");
+            searchBox.addEventListener('keypress', e => {
+                let request = new XMLHttpRequest();
+                request.onreadystatechange=(e)=>{
+                    const res = JSON.parse(request.responseText);
+                    const size = min(res.length, 4);
+                    queryResultBox.innerHTML="";//Flush the previous result first
+                    for(let i = 0; i < size; i++) {
+                        let a = document.createElement("a");
+                        a.href= "/" + res[i].id;
+                        let container = document.createElement("div");
+                        let p = docuement.createElement("p")
+                        p.innerText = res[i].name;
+                        container.appendChild(p);
+                        a.appendChild(container);
+                        queryResultBox.appendChild(container)
+                    }
+                }
+                const value = searchBox.value;
+                console.log(value)
+                const link = "http://127.0.0.1:5000/search/user/" + value;
+                request.open("GET", link);
+                request.send();
+
+            })
+        })();
+    </script>
+</div>
