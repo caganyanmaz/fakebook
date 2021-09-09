@@ -1,0 +1,9 @@
+{% extends "layouts/default.html" %}
+    {% block head %}
+        <title>Main Page</title>
+    {% endblock %}
+    {% block body %}
+        <h2>Hello {{ username }}!</h2>
+        <a href="/logout"><button>Log out</button></a>
+        <a href="/profile"><button>View profile</button></a>
+    {% endblock %}
